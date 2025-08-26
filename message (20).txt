@@ -1,0 +1,1335 @@
+local Library = loadstring(game:GetObjects("rbxassetid://7657867786")[1].Source)("Pepsi's UI Library")
+
+local Window = Library:CreateWindow({
+    Name = 'DodgeBros | South Bronx',
+    Themeable = {
+        Info = 'Thanks For Purchasing!',
+        Credit = false,
+    },
+DefaultTheme = '{"__Designer.Colors.topGradient":"232323","__Designer.Settings.ShowHideKey":"Enum.KeyCode.RShift","__Designer.Colors.section":"B0AFB0","__Designer.Colors.hoveredOptionBottom":"2D2D2D","__Designer.Background.ImageAssetID":"rbxassetid://0","__Designer.Colors.innerBorder":"493F49","__Designer.Colors.unselectedOption":"282828","__Designer.Files.WorkspaceFile":"DodgeBros","__Designer.Colors.unhoveredOptionTop":"323232","__Designer.Colors.outerBorder":"0F0F0F","__Designer.Background.ImageColor":"FFFFFF","__Designer.Colors.tabText":"B9B9B9","__Designer.Colors.elementBorder":"141414","__Designer.Colors.sectionBackground":"232222","__Designer.Colors.selectedOption":"373737","__Designer.Colors.background":"282828","__Designer.Colors.bottomGradient":"1D1D1D","__Designer.Background.ImageTransparency":100,"__Designer.Colors.main":"FFFFFF","__Designer.Colors.elementText":"939193","__Designer.Colors.hoveredOptionTop":"414141","__Designer.Colors.otherElementText":"817F81","__Designer.Colors.unhoveredOptionBottom":"232323","__Designer.Background.UseBackgroundImage":false}'
+})
+local GeneralTab = Window:CreateTab({
+    Name = 'General'
+})
+
+local MainSection = GeneralTab:CreateSection({
+    Name = '|Player|',
+    Side = 'Left'
+})
+
+MainSection:AddToggle({
+    Name = "| Partial God Mode",
+    StartingState = false,
+    Description = "This Enables Partial God Mode.",
+    Callback = function(state)
+        if state then
+            loadstring(game:HttpGet('https://pastebin.com/raw/a81PCdNV'))()
+        end
+    end
+})
+
+MainSection:AddToggle({
+    Name = "| Collision Expander",
+    StartingState = false,
+    Description = "This Expands the Collision of Players.",
+    Callback = function(state)
+        if state then
+            loadstring(game:HttpGet('https://pastebin.com/raw/6zXxnvRE'))()
+        end
+    end
+})
+
+MainSection:AddToggle({
+    Name = "| Forward Warp ( T )",
+    StartingState = false,
+    Description = "This Warps You Forward.",
+    Callback = function(state)
+        if state then
+            loadstring(game:HttpGet('https://pastebin.com/raw/ZjVJQMAk'))()
+        end
+    end
+})
+
+MainSection:AddToggle{
+    Name = "| Quick-Interact",
+    Callback = function()
+         for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
+         if v:IsA("ProximityPrompt") then
+            v["HoldDuration"] = 0
+         end
+      end
+      game:GetService("ProximityPromptService").PromptButtonHoldBegan:Connect(function(v)
+         v["HoldDuration"] = 0
+      end)
+    end
+}
+MainSection:AddToggle({
+    Name = "| Levitate ( V )",
+    StartingState = false,
+    Callback = function(state)
+        if state then
+            loadstring(game:HttpGet('https://pastebin.com/raw/TVYcXkS4'))()
+        end
+    end
+})
+
+MainSection:AddToggle({
+    Name = "| Stealth ( X )",
+    StartingState = false,
+    Callback = function(state)
+        if state then
+            loadstring(game:HttpGet('https://pastebin.com/raw/vsWgWXPY'))()
+        end
+    end
+})
+
+MainSection:AddToggle{
+    Name = "| Ctrl + Click = Remove",
+    Callback = function()
+local Plr = game:GetService("Players").LocalPlayer
+local Mouse = Plr:GetMouse()
+ 
+Mouse.Button1Down:connect(function()
+if not game:GetService("UserInputService"):IsKeyDown(Enum.KeyCode.LeftControl) then return end
+if not Mouse.Target then return end
+Mouse.Target:Destroy()
+end)
+    end
+}
+MainSection:AddToggle{
+    Name = '| Unlimited Zoom',
+    Callback = function(state)
+    getgenv().host = game:GetService'Players'.LocalPlayer
+
+    host.CameraMaxZoomDistance = math.huge
+        end
+    }   
+
+MainSection:AddToggle{
+    Name = '| Aspect Ratio Mod',
+    Value = false,
+    Flag = 'aspectratiomod',
+    Locked = false,
+    Callback = function(state)
+        stretchResEnabled = state
+
+        if stretchResEnabled then
+            getgenv().Resolution = {
+                [".gg/scripters"] = 0.65 
+            }
+
+            if not stretchConnection then
+                stretchConnection = runService.RenderStepped:Connect(function()
+                    Camera.CFrame = Camera.CFrame * CFrame.new(0, 0, 0, 1, 0, 0, 0, getgenv().Resolution[".gg/scripters"], 0, 0, 0, 1)
+                end)
+            end
+        else
+            if stretchConnection then
+                stretchConnection:Disconnect()
+                stretchConnection = nil
+            end
+        end
+    end
+}
+
+MainSection:AddToggle{
+    Name = "| Mass-Call",
+    Side = "Left",
+
+    Callback = function()
+        local ReplicatedStorage = game:GetService("ReplicatedStorage")
+        local Players = game:GetService("Players")
+        
+        local phoneEvent = ReplicatedStorage:FindFirstChild("RemoteEvents"):FindFirstChild("RE_Phone")
+        
+        if phoneEvent then
+            for _, player in pairs(Players:GetPlayers()) do
+                if player ~= game.Players.LocalPlayer then 
+                    phoneEvent:FireServer("CallRequest", { Target = player })
+        
+                    task.wait(1) 
+                    phoneEvent:FireServer("CallResponse", { Response = {true} }) 
+                end
+            end
+        end
+
+end,
+}
+
+MainSection:AddToggle{
+    Name = '| Wear All',
+    Value = false,
+    Flag = 'WearAll',
+    Locked = false,
+    Callback = function(state)
+
+        local EquipEnabled = false
+
+        local function IXIQZO_fake_script(state) 
+            local script = Instance.new('LocalScript', PopCorn)
+         
+            for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+            if v:IsA("Tool") then
+            v.Parent = game.Players.LocalPlayer.Character
+            end
+            end
+            end
+        coroutine.wrap(IXIQZO_fake_script)()
+        end,
+        }
+
+local SpeedSlider = MainSection:AddSlider({
+    Name = 'Adjust Velocity',
+    Flag = "VelocityFaster",
+    Value = 12,
+    Min = 0,
+    Max = 23,
+    Decimals = 1,
+    llegalInput = false,
+    Callback = function(value)
+       local player = game.Players.LocalPlayer
+        local humanoid = player.Character and player.Character:FindFirstChild("Humanoid")
+        
+        if humanoid then
+            humanoid.WalkSpeed = value 
+        end
+    end
+})
+
+local FOVSlider = MainSection:AddSlider({
+    Name = 'Adjust FOV',
+    Flag = "BegFOV",
+    Value = 70,
+    Min = 70,
+    Max = 120,
+    Decimals = 1,
+    llegalInput = false,
+    Callback = function(value)
+       workspace.CurrentCamera.FieldOfView = value
+    end
+})
+
+local Button = MainSection:AddButton({
+    Name = 'Repair-Floor',
+    Callback = function()
+
+
+local player = game.Players.LocalPlayer
+
+local function fixFloor()
+    local floor = workspace:FindFirstChild("Floor")
+    if floor then
+        floor.Size = Vector3.new(5000, -1, 5000)
+        floor.Position = Vector3.new(0, 0, 0) 
+        floor.Anchored = true
+    else
+        floor = Instance.new("Part")
+        floor.Name = "Floor"
+        floor.Size = Vector3.new(5000, -1, 5000)
+    	floor.Position = Vector3.new(0, 0, 0)
+        floor.Anchored = true
+        floor.Parent = workspace
+    end
+end
+
+player.CharacterAdded:Connect(function(character)
+    fixFloor()
+end)
+
+if player.Character then
+    fixFloor()
+end
+end
+})
+
+local GunSection = GeneralTab:CreateSection({
+    Name = '|Weapon Mods|',
+    Side = 'Left'
+})
+
+local Players = game:GetService("Players")
+
+local Toggle = GunSection:AddToggle({
+    Name = '| Sound On Hit',
+    Value = false,
+    Flag = "Hit",
+    Callback = function()
+        local player = game.Players.LocalPlayer
+        local backpack = player.Backpack
+        
+        for _, item in pairs(backpack:GetChildren()) do
+            if item:IsA("Tool") and item:FindFirstChild("Setting") then
+                local gun = require(item.Setting)
+                local music = {109566167393222} 
+                gun["HitCharSndIDs"] = music
+                gun["HitCharSndVolume"] = 10
+            end
+        end
+        
+    end
+})
+
+local Players = game:GetService("Players")
+local localPlayer = Players.LocalPlayer
+local toggleEnabled = false 
+local fireRateValue = 0.147 
+local function enableOneShot(tool)
+    if tool:IsA("Tool") then
+        local settingModule = tool:FindFirstChild("Setting")
+        
+        if settingModule and settingModule:IsA("ModuleScript") then
+            local success, settings = pcall(require, settingModule)
+
+            if success and type(settings) == "table" and settings.BaseDamage ~= nil then
+                settings.FireRate = fireRateValue 
+                settings.Auto = true 
+            else
+                print("")
+            end
+        else
+            print("")
+        end
+    end
+end
+
+local function disableOneShot(tool)
+    if tool:IsA("Tool") then
+        local settingModule = tool:FindFirstChild("Setting")
+        
+        if settingModule and settingModule:IsA("ModuleScript") then
+            local success, settings = pcall(require, settingModule)
+
+            if success and type(settings) == "table" and settings.BaseDamage ~= nil then
+                settings.FireRate = 0.147 
+                settings.Auto = false  
+            else
+                print("")
+            end
+        else
+            print("")
+        end
+    end
+end
+
+local function onCharacterAdded(character)
+    character.ChildAdded:Connect(function(child)
+        if child:IsA("Tool") then
+            if toggleEnabled then
+                enableOneShot(child)
+            else
+                disableOneShot(child)
+            end
+        end
+    end)
+
+    for _, child in ipairs(character:GetChildren()) do
+        if child:IsA("Tool") then
+            if toggleEnabled then
+                enableOneShot(child)
+            else
+                disableOneShot(child)
+            end
+        end
+    end
+end
+
+if localPlayer.Character then
+    onCharacterAdded(localPlayer.Character)
+end
+
+localPlayer.CharacterAdded:Connect(onCharacterAdded)
+
+local Toggle = GunSection:AddToggle({
+    Name = '| Switch Gun Mode',
+    Value = false,
+    Flag = 'switchgunmode',
+    Locked = false,
+    Callback = function(Value)
+        toggleEnabled = Value
+
+        if localPlayer.Character then
+            for _, child in ipairs(localPlayer.Character:GetChildren()) do
+                if child:IsA("Tool") then
+                    if toggleEnabled then
+                        enableOneShot(child)
+                    else
+                        disableOneShot(child)
+                    end
+                end
+            end
+        end
+    end
+})
+
+local Slider = GunSection:AddSlider({
+    Name = 'Fire Rate Settings',
+    Flag = "sliderRate",
+    Value = 0.147, 
+    Min = 0.03, 
+    Max = 0.147, 
+    Decimals = 3, 
+    Callback = function(Value)
+        fireRateValue = Value
+        print("")
+
+        if toggleEnabled and localPlayer.Character then
+            for _, child in ipairs(localPlayer.Character:GetChildren()) do
+                if child:IsA("Tool") then
+                    enableOneShot(child)
+                end
+            end
+        end
+    end
+})
+
+local Players = game:GetService("Players")
+local localPlayer = Players.LocalPlayer
+local toggleEnabled = false 
+
+local function quickReloadEnabled(tool)
+    if tool:IsA("Tool") then
+        local settingModule = tool:FindFirstChild("Setting")
+        
+        if settingModule and settingModule:IsA("ModuleScript") then
+            local success, settings = pcall(require, settingModule)
+
+            if success and type(settings) == "table" and settings.ReloadTime ~= nil then
+                settings.ReloadTime = 0 
+            else
+                print("")
+            end
+        else
+            print("")
+        end
+    end
+end
+
+local function quickReload(tool)
+    if tool:IsA("Tool") then
+        local settingModule = tool:FindFirstChild("Setting")
+        
+        if settingModule and settingModule:IsA("ModuleScript") then
+            local success, settings = pcall(require, settingModule)
+
+            if success and type(settings) == "table" and settings.ReloadTime ~= nil then
+                settings.ReloadTime = 2.9 
+            else
+                print("")
+            end
+        else
+            print("")
+        end
+    end
+end
+
+local function onCharacterAdded(character)
+    character.ChildAdded:Connect(function(child)
+        if child:IsA("Tool") then
+            if toggleEnabled then
+                quickReloadEnabled(child)
+            else
+                quickReload(child)
+            end
+        end
+    end)
+
+    for _, child in ipairs(character:GetChildren()) do
+        if child:IsA("Tool") then
+            if toggleEnabled then
+                quickReloadEnabled(child)
+            else
+                quickReload(child)
+            end
+        end
+    end
+end
+
+if localPlayer.Character then
+    onCharacterAdded(localPlayer.Character)
+end
+
+localPlayer.CharacterAdded:Connect(onCharacterAdded)
+
+local Toggle = GunSection:AddToggle({
+    Name = '| Fast Reload',
+    Value = false,
+    Flag = 'fastreload',
+    Locked = false,
+    Callback = function(Value)
+        toggleEnabled = Value
+
+        if localPlayer.Character then
+            for _, child in ipairs(localPlayer.Character:GetChildren()) do
+                if child:IsA("Tool") then
+                    if toggleEnabled then
+                        quickReloadEnabled(child)
+                    else
+                        quickReload(child)
+                    end
+                end
+            end
+        end
+    end
+})
+
+local Toggle = GunSection:AddToggle({
+    Name = "| Spread Mode",
+    Value = false,
+    Flag = "SpreadMode",
+    locked = false,
+    Callback = function()
+        local player = game.Players.LocalPlayer
+        local backpack = player.Backpack
+        
+        for _, item in pairs(backpack:GetChildren()) do
+            if item:IsA("Tool") and item:FindFirstChild("Setting") then
+                local gun = require(item.Setting)
+                gun["ShotgunEnabled"] = true
+            end
+        end
+    end
+})
+
+local Players = game:GetService("Players")
+local localPlayer = Players.LocalPlayer
+local toggleEnabled = false 
+
+local defaultSettings = {}
+
+local function enableModifications(tool)
+    if tool:IsA("Tool") then
+        local settingModule = tool:FindFirstChild("Setting")
+
+        if settingModule and settingModule:IsA("ModuleScript") then
+            local success, settings = pcall(require, settingModule)
+
+            if success and type(settings) == "table" then
+                if not defaultSettings[tool.Name] then
+                    defaultSettings[tool.Name] = {
+                        Accuracy = settings.Accuracy,
+                        SpreadX = settings.SpreadX,
+                        SpreadY = settings.SpreadY,
+                        Range = settings.Range,
+                        Recoil = settings.Recoil
+                    }
+                end
+
+                settings.Accuracy = 1
+                settings.SpreadX = 0
+                settings.SpreadY = 0
+                settings.Range = 50000
+                settings.Recoil = 0
+            else
+                print("")
+            end
+        else
+            print("")
+        end
+    end
+end
+
+local function resetToDefaults(tool)
+    if tool:IsA("Tool") then
+        local settingModule = tool:FindFirstChild("Setting")
+
+        if settingModule and settingModule:IsA("ModuleScript") then
+            local success, settings = pcall(require, settingModule)
+
+            if success and type(settings) == "table" and defaultSettings[tool.Name] then
+                local defaults = defaultSettings[tool.Name]
+                settings.Accuracy = defaults.Accuracy
+                settings.SpreadX = defaults.SpreadX
+                settings.SpreadY = defaults.SpreadY
+                settings.Range = defaults.Range
+                settings.Recoil = defaults.Recoil
+            else
+                print("")
+            end
+        else
+            print("")
+        end
+    end
+end
+
+local function onCharacterAdded(character)
+    character.ChildAdded:Connect(function(child)
+        if child:IsA("Tool") then
+            if toggleEnabled then
+                enableModifications(child)
+            else
+                resetToDefaults(child)
+            end
+        end
+    end)
+
+    for _, child in ipairs(character:GetChildren()) do
+        if child:IsA("Tool") then
+            if toggleEnabled then
+                enableModifications(child)
+            else
+                resetToDefaults(child)
+            end
+        end
+    end
+end
+
+if localPlayer.Character then
+    onCharacterAdded(localPlayer.Character)
+end
+
+localPlayer.CharacterAdded:Connect(onCharacterAdded)
+
+local Toggle = GunSection:AddToggle({
+    Name = '| Zero Recoil',
+    Value = false,
+    Flag = 'zerorecoil',
+    Locked = false,
+    Callback = function(Value)
+        toggleEnabled = Value
+
+        if localPlayer.Character then
+            for _, child in ipairs(localPlayer.Character:GetChildren()) do
+                if child:IsA("Tool") then
+                    if toggleEnabled then
+                        enableModifications(child)
+                    else
+                        resetToDefaults(child)
+                    end
+                end
+            end
+        end
+    end
+})
+
+local Toggle = GunSection:AddToggle({
+    Name = "| No Jam",
+    Value = false,
+    Flag = "NoJam",
+    Locked = false,
+    Callback = function()
+
+        local player = game.Players.LocalPlayer
+local backpack = player.Backpack
+
+for _, item in pairs(backpack:GetChildren()) do
+    if item:IsA("Tool") and item:FindFirstChild("Setting") then
+        local gun = require(item.Setting)
+        gun["JamChance"] = 0 
+    end
+end
+end
+})
+
+local AimbotTab = Window:CreateTab({
+    Name = 'Aimbot'
+})
+
+
+local SASection = AimbotTab:CreateSection({
+    Name = 'Aimbot',
+    Side = 'Left'
+})
+local MSASection = AimbotTab:CreateSection({
+    Name = 'Mobile Aimbot',
+    Side = 'Left'
+})
+local CSASection = AimbotTab:CreateSection({
+    Name = 'Silent Aim',
+    Side = 'Right'
+})
+
+SASection:AddToggle{
+    Name = "| Aimbot",
+    Description = "Locks Onto Other Players' Heads.",
+    Callback = function(enabled)
+        _G.AimbotEnabled = enabled
+        if enabled then
+            Holding = false 
+        end
+    end
+}
+
+SASection:AddToggle{
+    Name = "| FOV Circle",
+    Description = "Toggle Visibility of FOV Circle.",
+    Callback = function(enabled)
+        _G.CircleVisible = enabled
+        FOVCircle.Visible = enabled
+    end
+}
+
+SASection:AddSlider{
+    Name = "FOV Radius",
+    Default = 0,
+    Min = 0,
+    Max = 350,
+    Callback = function(value)
+        _G.CircleRadius = value
+        FOVCircle.Radius = value
+    end
+}
+
+SASection:AddSlider{
+    Name = "Smoothness",
+    Default = 0,
+    Min = 0,
+    Max = 100,
+    Callback = function(value)
+        _G.Smoothness = value / 100 
+    end
+}
+
+SASection:AddSlider{
+    Name = "FOV Thickness",
+    Default = 0,
+    Min = 0,
+    Max = 100,
+    Callback = function(value)
+        _G.CircleThickness = value
+        FOVCircle.Thickness = value
+    end
+}
+
+SASection:AddDropdown{
+    Name = "Body Parts",
+    List = {"Head", "UpperTorso", "LowerTorso", "LeftLeg", "RightLeg", "LeftArm", "RightArm"},
+    Callback = function(item)
+        _G.AimPart = item
+    end
+}
+
+local Camera = workspace.CurrentCamera
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local UserInputService = game:GetService("UserInputService")
+local TweenService = game:GetService("TweenService")
+
+local LocalPlayer = Players.LocalPlayer
+local Holding = false
+local LockedTarget = nil
+
+_G.AimbotEnabled = true
+_G.TeamCheck = false 
+_G.AimPart = "Head" 
+_G.Smoothness = 0 
+
+_G.CircleSides = 64
+_G.CircleColor = Color3.fromRGB(255, 255, 255)
+_G.CircleTransparency = 0.7
+_G.CircleRadius = 0
+_G.CircleFilled = false
+_G.CircleVisible = true
+_G.CircleThickness = 0
+
+local FOVCircle = Drawing.new("Circle")
+FOVCircle.Position = Vector2.new(Camera.ViewportSize.X / 2, Camera.ViewportSize.Y / 2)
+FOVCircle.Radius = _G.CircleRadius
+FOVCircle.Filled = _G.CircleFilled
+FOVCircle.Color = _G.CircleColor
+FOVCircle.Visible = _G.CircleVisible
+FOVCircle.Transparency = _G.CircleTransparency
+FOVCircle.NumSides = _G.CircleSides
+FOVCircle.Thickness = _G.CircleThickness
+
+local function GetClosestPlayer()
+    local MaxDistance = _G.CircleRadius
+    local Target = nil
+
+    for _, v in pairs(Players:GetPlayers()) do
+        if v ~= LocalPlayer and v.Character and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("Humanoid") and v.Character.Humanoid.Health > 0 then
+            if not _G.TeamCheck or (v.Team ~= LocalPlayer.Team) then
+                local part = v.Character:FindFirstChild(_G.AimPart)
+                if part then
+                    local ScreenPoint, OnScreen = Camera:WorldToScreenPoint(part.Position)
+                    if OnScreen then
+                        local Distance = (Vector2.new(UserInputService:GetMouseLocation().X, UserInputService:GetMouseLocation().Y) - Vector2.new(ScreenPoint.X, ScreenPoint.Y)).Magnitude
+                        if Distance < MaxDistance then
+                            MaxDistance = Distance
+                            Target = part
+                        end
+                    end
+                end
+            end
+        end
+    end
+
+    return Target
+end
+
+UserInputService.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton2 then
+        Holding = true
+        LockedTarget = GetClosestPlayer() 
+    end
+end)
+
+UserInputService.InputEnded:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton2 then
+        Holding = false
+        LockedTarget = nil
+    end
+end)
+
+RunService.RenderStepped:Connect(function()
+    if Holding and _G.AimbotEnabled and LockedTarget then
+        if LockedTarget.Parent then
+            local TargetPosition = LockedTarget.Position
+            local CurrentCameraPosition = Camera.CFrame.Position
+            local NewCFrame = CFrame.new(CurrentCameraPosition, TargetPosition)
+            
+            Camera.CFrame = Camera.CFrame:Lerp(NewCFrame, _G.Smoothness)
+        else
+            LockedTarget = GetClosestPlayer() 
+        end
+    end
+
+    if _G.CircleVisible then
+        FOVCircle.Position = UserInputService:GetMouseLocation()
+        FOVCircle.Radius = _G.CircleRadius
+        FOVCircle.Thickness = _G.CircleThickness
+        FOVCircle.Visible = true
+    else
+        FOVCircle.Visible = false
+    end
+end)
+
+local VisualsTab = Window:CreateTab({
+    Name = 'Visuals'
+})
+
+local ESPSection = VisualsTab:CreateSection({
+    Name = 'ESPs',
+    Side = 'Left'
+})
+
+ESPSection:AddToggle({
+    Name = "| Boxes",
+    StartingState = false,
+    Description = "This Adds Boxes Above People's Heads.",
+    Callback = function(state)
+        if state then
+            loadstring(game:HttpGet('https://pastebin.com/raw/i9EFDTBn'))()
+        end
+    end
+})
+
+ESPSection:AddToggle({
+    Name = "| Name",
+    StartingState = false,
+    Description = "This Adds People's Names Above Their Heads.",
+    Callback = function(state)
+        if state then
+            loadstring(game:HttpGet('https://pastebin.com/raw/eaXVeBdR'))()
+        end
+    end
+})
+
+ESPSection:AddToggle({
+    Name = "| Health Bar",
+    StartingState = false,
+    Description = "This Adds People's Health Bars.",
+    Callback = function(state)
+        if state then
+            loadstring(game:HttpGet('https://pastebin.com/raw/RZ7kbGD6'))()
+        end
+    end
+})
+
+
+local camera = workspace.CurrentCamera
+local players = game:GetService("Players")
+local localPlayer = players.LocalPlayer
+local runService = game:GetService("RunService")
+
+local activeESP = {}
+
+local function createESP(player, character)
+    local humanoid = character:WaitForChild("Humanoid")
+    local rootPart = character:WaitForChild("HumanoidRootPart") 
+
+    local textLabel = Drawing.new("Text")
+    textLabel.Visible = false
+    textLabel.Center = true
+    textLabel.Outline = false
+    textLabel.Font = 3
+    textLabel.Size = 11
+    textLabel.Color = Color3.new(1, 1, 1) 
+
+    local distanceLabel = Drawing.new("Text")
+    distanceLabel.Visible = false
+    distanceLabel.Center = true
+    distanceLabel.Outline = false
+    distanceLabel.Font = 3
+    distanceLabel.Size = 11
+    distanceLabel.Color = Color3.new(1, 0.5, 0) 
+
+    local connectionRender, connectionAncestry, connectionHealth
+
+    local function removeESP()
+        textLabel.Visible = false
+        textLabel:Remove()
+        distanceLabel.Visible = false
+        distanceLabel:Remove()
+        if connectionRender then connectionRender:Disconnect() end
+        if connectionAncestry then connectionAncestry:Disconnect() end
+        if connectionHealth then connectionHealth:Disconnect() end
+    end
+
+    connectionAncestry = character.AncestryChanged:Connect(function(_, parent)
+        if not parent then
+            removeESP()
+        end
+    end)
+
+    connectionHealth = humanoid.HealthChanged:Connect(function(health)
+        if health <= 0 or humanoid:GetState() == Enum.HumanoidStateType.Dead then
+            removeESP()
+        end
+    end)
+
+    connectionRender = runService.RenderStepped:Connect(function()
+        local position, onScreen = camera:WorldToViewportPoint(rootPart.Position)
+        if onScreen then
+            local distance = (localPlayer.Character.HumanoidRootPart.Position - rootPart.Position).Magnitude
+            textLabel.Position = Vector2.new(position.X, position.Y + 39) 
+            textLabel.Text = "Distance:"
+            textLabel.Visible = true
+
+            distanceLabel.Position = Vector2.new(position.X + textLabel.TextBounds.X + 5, position.Y + 39)
+            distanceLabel.Text = string.format("%.1f", distance) 
+            distanceLabel.Visible = true
+        else
+            textLabel.Visible = false
+            distanceLabel.Visible = false
+        end
+    end)
+
+    activeESP[player] = {textLabel, distanceLabel, connectionRender, connectionAncestry, connectionHealth}
+end
+
+local function handleNewPlayer(player)
+    if player.Character then
+        createESP(player, player.Character)
+    end
+    player.CharacterAdded:Connect(function(character)
+        createESP(player, character)
+    end)
+end
+
+local function cleanupESP()
+    for player, espData in pairs(activeESP) do
+        espData[1]:Remove() 
+        espData[2]:Remove() 
+        for i = 3, #espData do
+            espData[i]:Disconnect() 
+        end
+    end
+    activeESP = {}
+end
+
+local espEnabled = false
+
+local function toggleESP(state)
+    espEnabled = state
+    if espEnabled then
+        for _, player in pairs(players:GetPlayers()) do
+            if player ~= localPlayer then
+                handleNewPlayer(player)
+            end
+        end
+        players.PlayerAdded:Connect(handleNewPlayer)
+    else
+        cleanupESP()
+    end
+end
+
+ESPSection:AddToggle({
+    Name = "| Distance ESP",
+    Value = false,
+    Flag = "distance_esp_toggle",
+    Callback = function(state)
+        toggleESP(state)
+    end,
+})
+
+ESPSection:AddToggle({
+    Name = "| Skeleton",
+    StartingState = false,
+    Description = "This Adds People's View Tracer.",
+    Callback = function(state)
+        if state then
+            loadstring(game:HttpGet('https://pastebin.com/raw/nRmXUbTA'))()
+        end
+    end
+})
+
+ESPSection:AddToggle({
+    Name = "| Tracer",
+    StartingState = false,
+    Description = "This Adds People's View Tracer.",
+    Callback = function(state)
+        if state then
+            loadstring(game:HttpGet('https://pastebin.com/raw/pZaywk6y'))()
+        end
+    end
+})
+
+
+local excludedTools = {
+    "Card", "Hot Chips", "Potato Chips", "Phone", "Fist",
+    "Crate", "TrashBag", "Knife", "Fake ID", "Standard Clip",
+    "Potato", "Drum Magazine", "Extended Clip", "Speed Loader",
+    "SkiMask", "Flour", "Heavy Magazine", "CaneBeam", "Bacon Egg And Cheese"
+ }
+    local showGunsEnabled = false
+    local function isExcludedTool(toolName)
+    for _, excludedName in ipairs(excludedTools) do
+        if toolName == excludedName then
+            return true
+        end
+    end
+    return false
+    end
+    local function updatePlayerTool(player)
+    if not showGunsEnabled then return end
+    local character = player.Character
+    if not character then return end
+    local humanoid = character:FindFirstChildOfClass("Humanoid")
+    if not humanoid then return end
+    local currentTool = humanoid.Parent:FindFirstChildOfClass("Tool")
+    local billboardName = "ToolDisplay"
+    local billboard = character:FindFirstChild(billboardName)
+    if not billboard then
+        billboard = Instance.new("BillboardGui")
+        billboard.Name = billboardName
+        billboard.AlwaysOnTop = true
+        billboard.Size = UDim2.new(3, 0, 1, 0)
+        billboard.StudsOffset = Vector3.new(0, 6, 0) 
+        local textLabel = Instance.new("TextLabel", billboard)
+        textLabel.Size = UDim2.new(1, 0, 1, 0)
+        textLabel.TextSize = 20
+        textLabel.TextStrokeTransparency = 0.5
+        textLabel.BackgroundTransparency = 1
+        textLabel.Font = Enum.Font.SourceSansBold
+        billboard.Parent = character
+    end
+    local textLabel = billboard.TextLabel
+    if currentTool then
+        local toolName = currentTool.Name
+        if isExcludedTool(toolName) then
+            textLabel.Text = ""
+        else
+            textLabel.Text = toolName
+            if string.find(toolName, "Micro ARP") or
+               string.find(toolName, "AK Draco") then
+                textLabel.TextColor3 = Color3.new(1, 0, 0)
+            elseif string.find(toolName, "MCX") or
+                   string.find(toolName, "Draco") or
+                   string.find(toolName, "Tec-9") or
+                   string.find(toolName, "Springfield XD MOD") or
+                   string.find(toolName, "AR Pistol") or
+                   string.find(toolName, "P320E") or
+                   string.find(toolName, "FN57") or
+                   string.find(toolName, "G19EXT") then
+                textLabel.TextColor3 = Color3.new(0, 1, 0)
+            elseif string.find(toolName, "Drum") then
+                textLabel.TextColor3 = Color3.new(1, 0.8, 0)
+            else
+                textLabel.TextColor3 = Color3.new(1, 1, 1)
+            end
+        end
+    else
+        textLabel.Text = ""
+    end
+    end
+    local function updatePlayerToolsLoop()
+    while true do
+        for _, player in ipairs(game.Players:GetPlayers()) do
+            updatePlayerTool(player)
+        end
+        wait(0.1)
+    end
+    end
+    spawn(updatePlayerToolsLoop)
+    local function onCharacterAdded(character)
+    updatePlayerTool(character.Parent)
+    end
+    game.Players.PlayerAdded:Connect(function(player)
+    player.CharacterAdded:Connect(function(character)
+        onCharacterAdded(character)
+    end)
+    end)
+    local function toggleShowGuns(state)
+    showGunsEnabled = state
+    for _, player in ipairs(game.Players:GetPlayers()) do
+        if showGunsEnabled then
+            updatePlayerTool(player)
+        else
+            local billboard = player.Character:FindFirstChild("ToolDisplay")
+            if billboard then
+                billboard:Destroy()
+            end
+        end
+    end
+    end
+
+
+ESPSection:AddToggle({
+    Name = "| Arrows",
+    StartingState = false,
+    Description = "This Adds Your Arrows To People.",
+    Callback = function(state)
+        if state then
+            loadstring(game:HttpGet('https://pastebin.com/raw/ZJpnUcNX'))()
+        end
+    end
+})
+
+ESPSection:AddToggle({
+    Name = "| Inventory ESP",
+    StartingState = false,
+    Description = "Shows Other People's Inventory.",
+    Callback = function(state)
+        if state then
+            loadstring(game:HttpGet("https://pastebin.com/raw/7HTXKCAY"))()
+        end
+    end
+})
+
+ESPSection:AddToggle({
+    Name = "| Show Guns",
+    StartingState = false,
+    Description = "Shows Guns Above Heads.",
+    Callback = function(state)
+        toggleShowGuns(state)
+    end
+})
+
+ESPSection:AddToggle({
+    Name = "| Radar",
+    StartingState = false,
+    Description = "Shows People In The Radar.",
+    Callback = function(state)
+        if state then
+            loadstring(game:HttpGet('https://pastebin.com/raw/cGRig6ey'))()
+        end
+    end
+})
+
+ESPSection:AddToggle({
+    Name = "| FullBright",
+    StartingState = false,
+    Description = "This Makes Your Screen Brighter.",
+    Callback = function(state)
+        if state then
+            loadstring(game:HttpGet('https://pastebin.com/raw/dvMVMTGA'))()
+        end
+    end
+})
+
+local Players = game:GetService("Players")
+local localPlayer = Players.LocalPlayer
+local highlightESPEnabled = false
+local highlights = {} 
+local highlightColor = Color3.new(0, 0, 0) 
+
+local function CreateHighlight(player)
+    if highlights[player] or player == localPlayer then return end 
+
+    local highlight = Instance.new("Highlight")
+    highlight.Name = "HighlightESP"
+    highlight.FillTransparency = 0.5
+    highlight.FillColor = highlightColor 
+    highlight.OutlineColor = Color3.new(1, 1, 1) 
+    highlight.OutlineTransparency = 0
+    highlight.Parent = player.Character or player.CharacterAdded:Wait()
+    highlights[player] = highlight
+end
+
+local function RemoveHighlight(player)
+    if highlights[player] then
+        highlights[player]:Destroy()
+        highlights[player] = nil
+    end
+end
+
+local function EnableHighlightESP()
+    for _, player in pairs(Players:GetPlayers()) do
+        CreateHighlight(player)
+    end
+end
+
+local function DisableHighlightESP()
+    for player, _ in pairs(highlights) do
+        RemoveHighlight(player)
+    end
+end
+
+local function ToggleHighlightESP(state)
+    highlightESPEnabled = state
+    if highlightESPEnabled then
+        EnableHighlightESP()
+    else
+        DisableHighlightESP()
+    end
+end
+
+local function UpdateHighlightColors()
+    for player, highlight in pairs(highlights) do
+        highlight.FillColor = highlightColor
+    end
+end
+
+Players.PlayerAdded:Connect(function(player)
+    if highlightESPEnabled then
+        CreateHighlight(player)
+    end
+end)
+
+Players.PlayerRemoving:Connect(function(player)
+    RemoveHighlight(player)
+end)
+
+ESPSection:AddToggle({
+    Name = "| Highlight ESP",
+    Value = false,
+    Flag = "highlight_esp_toggle",
+    Callback = function(state)
+        ToggleHighlightESP(state)
+    end
+})
+
+ESPSection:AddColorPicker({
+    Name = "Highlight Color",
+    Default = highlightColor,
+    Flag = "highlight_color_picker",
+    Callback = function(color)
+        highlightColor = color
+        if highlightESPEnabled then
+            UpdateHighlightColors()
+        end
+    end
+})
+
+if not aimbotEnabled then
+    aimbotEnabled = false
+
+    if fovCircle then
+        fovCircle.Visible = false
+        fovCircle:Remove()  
+        fovCircle = nil 
+    end
+    if arrow then
+        arrow.Visible = false
+        arrow:Remove()  
+        arrow = nil  
+    end
+
+    if RenderSteppedConnection then
+        RenderSteppedConnection:Disconnect()
+        RenderSteppedConnection = nil
+    end
+
+    Aiming = false
+else
+    aimbotEnabled = true
+
+    if not fovCircle then
+        fovCircle = Drawing.new("Circle")
+        fovCircle.Radius = FOVRadius
+        fovCircle.Color = Color3.fromRGB(255, 0, 255)
+        fovCircle.Thickness = 2
+        fovCircle.Transparency = 1
+        fovCircle.Filled = false
+    end
+
+    if not arrow then
+        arrow = Drawing.new("Line")
+        arrow.Visible = true
+        arrow.Color = Color3.fromRGB(255, 0, 0)
+        arrow.Thickness = 2
+    end
+
+    RenderSteppedConnection = RunService.RenderStepped:Connect(function()
+        fovCircle.Position = UserInputService:GetMouseLocation()  
+
+        if Aiming then
+            local closestPlayer = getClosestPlayerInFOV()
+            if closestPlayer then
+                aimAt(closestPlayer, AimSmoothing)
+            end
+        end
+
+        local closestPlayer = getClosestPlayerInFOV()
+        if closestPlayer then
+            drawArrowToTarget(closestPlayer)
+        else
+            arrow.Visible = false
+        end
+    end)
+
+    Aiming = true
+    print("Aimbot enabled.")
+end
+
+local ServerSection = GeneralTab:CreateSection({
+    Name = 'Server Settings',
+    Side = 'Right'
+})
+
+local Button = ServerSection:AddButton({
+    Name = "Rejoin Server",
+    Callback = function()
+     local TeleportService = game:GetService("TeleportService")
+    local Players = game:GetService("Players")
+    local LocalPlayer = Players.LocalPlayer
+
+    local Rejoin = coroutine.create(function()
+        local Success, ErrorMessage = pcall(function()
+            TeleportService:Teleport(game.PlaceId, LocalPlayer)
+        end)
+
+        if ErrorMessage and not Success then
+            warn(ErrorMessage)
+        end
+    end)
+
+    coroutine.resume(Rejoin)
+    end
+})
+
+local Button = ServerSection:AddButton({
+    Name = "Anti AFK",
+    Callback = function()
+        loadstring(game:HttpGet('https://pastebin.com/raw/DtwLVRdP'))()
+    end
+})
+
+local Button = ServerSection:AddButton({
+    Name = "Hide Name",
+    StartingState = false,
+    Description = "This Hides Player Names.",
+    Callback = function()
+        loadstring(game:HttpGet('https://pastebin.com/raw/iPcPNt23'))()
+    end
+})
+
+local Button = ServerSection:AddButton({
+    Name = "Low GFX",
+    StartingState = false,
+    Description = "This Reduces Graphics for Better Performance.",
+    Callback = function()
+        loadstring(game:HttpGet('https://pastebin.com/raw/SS4E3tDQ'))()
+    end
+})
+
+local Button = CSASection:AddButton({
+    Name = "Silent Aim & Wall Bang",
+    Value = false,
+    Flag = "Toggle", 
+    Callback = function(State)
+local response = game:HttpGet("https://pastebin.com/raw/5JgzHnDU", true)
+print(response) 
+loadstring(response)()
+end
+})
